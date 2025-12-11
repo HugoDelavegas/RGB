@@ -17,7 +17,21 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_SLD_RD_valueChanged(int value);
+
+    void on_SLD_GN_valueChanged(int value);
+
+    void on_SLD_BL_valueChanged(int value);
+
+    void on_SPB_BL_valueChanged(int arg1);
+
+    void on_SPB_GN_valueChanged(int arg1);
+
+    void on_SPB_RD_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
+    void RGBAdjust();
 };
 #endif // MAINWINDOW_H
