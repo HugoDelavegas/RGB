@@ -30,8 +30,12 @@ private slots:
 
     void on_SPB_RD_valueChanged(int arg1);
 
+    void RGBAdjust();
+    void Init();
+
 private:
     Ui::MainWindow *ui;
-    void RGBAdjust();
+
+
 };
 #endif // MAINWINDOW_H
