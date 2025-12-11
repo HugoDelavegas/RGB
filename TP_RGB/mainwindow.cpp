@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QSlider>
+#include <QStringList>
+#include <QStringListModel>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -37,18 +39,57 @@ void MainWindow::on_SLD_BL_valueChanged(int value)
 
 void MainWindow::on_SPB_BL_valueChanged(int arg1)
 {
+    QPalette palette;
+    ui->SPB_BL->setAutoFillBackground(true);
+    palette.setColor(QPalette::Base, QColor(QColor(0,0,arg1)));
+
+    if (arg1<200)
+    {
+        palette.setColor(QPalette::Text,Qt::white);
+    }
+    else
+    {
+        palette.setColor(QPalette::Text,Qt::black);
+    }
+    ui->SPB_BL->setPalette(palette);
     ui->SLD_BL->setValue(arg1);
 }
 
 
 void MainWindow::on_SPB_GN_valueChanged(int arg1)
 {
+    QPalette palette;
+    ui->SPB_GN->setAutoFillBackground(true);
+    palette.setColor(QPalette::Base, QColor(QColor(0,arg1,0)));
+
+    if (arg1<100)
+    {
+        palette.setColor(QPalette::Text,Qt::white);
+    }
+    else
+    {
+        palette.setColor(QPalette::Text,Qt::black);
+    }
+    ui->SPB_GN->setPalette(palette);
     ui->SLD_GN->setValue(arg1);
 }
 
 
 void MainWindow::on_SPB_RD_valueChanged(int arg1)
 {
+    QPalette palette;
+    ui->SPB_RD->setAutoFillBackground(true);
+    palette.setColor(QPalette::Base, QColor(QColor(arg1,0,0)));
+
+    if (arg1<200)
+    {
+        palette.setColor(QPalette::Text,Qt::white);
+    }
+    else
+    {
+        palette.setColor(QPalette::Text,Qt::black);
+    }
+    ui->SPB_RD->setPalette(palette);
     ui->SLD_RD->setValue(arg1);
 }
 
@@ -56,8 +97,12 @@ void MainWindow::RGBAdjust()
 {
     QPalette palette;
     ui->Label_Color->setAutoFillBackground(true);
-    palette.setColor(QPalette::Window, QColor(ui->SPB_RD->value(), ui->SPB_GN->value(), ui->SPB_BL->value()));
+
+    QColor color = QColor(ui->SPB_RD->value(), ui->SPB_GN->value(), ui->SPB_BL->value());
+    palette.setColor(QPalette::Window,color );
+    QString colorhex= color.name(QColor::HexRgb);
     ui->Label_Color->setPalette(palette);
+    ui->Label_Color->setText(colorhex);
 }
 
 void MainWindow::Init()
@@ -83,5 +128,23 @@ void MainWindow::Init()
     ui->SPB_BL->setValue(255);
     ui->SPB_GN->setValue(255);
     ui->SPB_RD->setValue(255);
+
+    QStringList listeCouleurs = QColor::colorNames();
+    QStringListModel *modeleCouleurs = new QStringListModel(listeCouleurs);
+    ui->listView->setModel(modeleCouleurs);
+
+}
+
+
+void MainWindow::on_listView_clicked(const QModelIndex &index)
+{
+    QVariant nom = index.data(Qt::DisplayRole);
+    int red =nom.value<QColor>().red();
+    int green=nom.value<QColor>().green();
+    int blue=nom.value<QColor>().blue();
+
+    ui->SLD_RD->setValue(red);
+    ui->SLD_GN->setValue(green);
+    ui->SLD_BL->setValue(blue);
 }
 

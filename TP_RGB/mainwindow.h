@@ -33,6 +33,8 @@ private slots:
     void RGBAdjust();
     void Init();
 
+    void on_listView_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 
