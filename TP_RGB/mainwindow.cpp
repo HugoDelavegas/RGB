@@ -148,3 +148,26 @@ void MainWindow::on_listView_clicked(const QModelIndex &index)
     ui->SLD_BL->setValue(blue);
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString label_name = "Label_Choix"+QString::number(this->numeroc);
+    QPalette palette;
+    ui->Label_Color->setAutoFillBackground(true);
+    QColor color = QColor(ui->SPB_RD->value(), ui->SPB_GN->value(), ui->SPB_BL->value());
+    palette.setColor(QPalette::Window,color );
+
+
+    if(numeroc<6)
+    {
+        numeroc++;
+
+    }
+    else
+    {
+        numeroc=1;
+    }
+
+
+}
+

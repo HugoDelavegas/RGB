@@ -17,6 +17,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 private slots:
     void on_SLD_RD_valueChanged(int value);
 
@@ -35,9 +36,11 @@ private slots:
 
     void on_listView_clicked(const QModelIndex &index);
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
-
+    int numeroc;
 
 };
 #endif // MAINWINDOW_H
